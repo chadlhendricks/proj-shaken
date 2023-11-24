@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
-    private Transform _enemyTransform;
-    private float _moveSpeed = 0.5f;
+    private Rigidbody _enemyRigidbody;
+    [SerializeField] private float _moveSpeed = 0.5f;
 
     private void Start()
     {
-        _enemyTransform = GetComponent<Transform>();
+        _enemyRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        transform.position += Vector3.right * _moveSpeed * Time.deltaTime;
+        _enemyRigidbody.velocity = transform.forward * _moveSpeed;
     }
 }
