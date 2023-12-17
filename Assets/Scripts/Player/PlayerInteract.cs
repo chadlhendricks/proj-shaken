@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    // Script References
+    [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
+
+    // Variables
+
     private void Update()
     {
+        // Interact
         if (Input.GetKeyDown(KeyCode.E))
         {
             float interactRange = 2f;
@@ -18,6 +24,12 @@ public class PlayerInteract : MonoBehaviour
                     npcInteractable.Interact(transform);
                 }
             }
+        } 
+
+        // Flashlight
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _cellphoneFlashlight.ToggleFlashlight();
         }
     }
 }
