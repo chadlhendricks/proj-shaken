@@ -17,6 +17,12 @@ using UnityEngine.UI;
 public class FirstPersonController : MonoBehaviour
 {
     private Rigidbody rb;
+    private Animator animator;
+
+    private float animationBlendSpeed = 8.9f;
+
+    private int xVelocityHash;
+    private int yVelocityHash;
 
     #region Camera Movement Variables
 
@@ -56,7 +62,7 @@ public class FirstPersonController : MonoBehaviour
     #region Movement Variables
 
     public bool playerCanMove = true;
-    public float walkSpeed = 5f;
+    public float walkSpeed = 4f;
     public float maxVelocityChange = 10f;
 
     // Internal Variables
@@ -134,6 +140,10 @@ public class FirstPersonController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
+
+        xVelocityHash = Animator.StringToHash("X_Velocity");
+        yVelocityHash = Animator.StringToHash("Y_Velocity");
 
         crosshairObject = GetComponentInChildren<Image>();
 
@@ -414,6 +424,7 @@ public class FirstPersonController : MonoBehaviour
                 }
 
                 rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
             }
             // All movement calculations while walking
             else
@@ -435,6 +446,12 @@ public class FirstPersonController : MonoBehaviour
                 velocityChange.y = 0;
 
                 rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+                Debug.Log(velocity.x + velocityChange.x);
+                Debug.Log(velocity.z + velocityChange.z);
+
+                animator.SetFloat(xVelocityHash, velocity.x + velocityChange.x);
+                animator.SetFloat(yVelocityHash, velocity.z + velocityChange.z);
             }
         }
 
