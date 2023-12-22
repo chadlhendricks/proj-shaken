@@ -7,36 +7,28 @@ public class PlayerInteract : MonoBehaviour
 {
     // Script References
     [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
-    private ExamineSystem examineSystem;
-    private PlayerInventory playerInventory;
-    private pickUp _pickUp;
+    [SerializeField] private ExamineSystem examineSystem;
+    [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private CursorIcon _cursorIcon;
+    private pickUp _pickUp;
 
     // Variables
     private float time;
     private float timer;
     public float ExamineDistance;
     public float InteractionDistance;
-    public GameObject Examine_Object;
+    public GameObject ExamineObject;
 
     public void Start()
     {
         time = 0.5f;
         _pickUp = FindObjectOfType<pickUp>();
-        examineSystem = FindObjectOfType<ExamineSystem>();
-        playerInventory = FindObjectOfType<PlayerInventory>();
     }
 
     private void Update()
     {
-        // Inspect Items
         InspectItem();
-
-        // Flashlight
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            _cellphoneFlashlight.ToggleFlashlight();
-        }
+        ToggleFlashlight();
     }
 
     private void InspectItem()
@@ -56,23 +48,23 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (inspectSystem.CompareTag("Examine"))
                     {
-                        Examine_Object = inspectSystem.gameObject;
-                        examineSystem.ExamineAction(Examine_Object);
+                        ExamineObject = inspectSystem.gameObject;
+                        examineSystem.ExamineAction(ExamineObject);
                         _cursorIcon.ChangeMouseIcon(CursorLockMode.None, true, Color.white, 5);
 
                     }
                     else if (inspectSystem.CompareTag("pickUp"))
                     {
-                        Examine_Object = inspectSystem.gameObject;
+                        ExamineObject = inspectSystem.gameObject;
                         _pickUp.pickUpSystem(inspectSystem.gameObject);
                         _cursorIcon.ChangeMouseIcon(CursorLockMode.Locked, false, Color.white, 5);
                     }
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E) && Examine_Object.GetComponent<InspectSystem>().Pickup && ExamineSystem.ExamineMode)
+        else if (Input.GetKeyDown(KeyCode.E) && ExamineObject.GetComponent<InspectSystem>().Pickup && ExamineSystem.ExamineMode)
         {
-            if (!Examine_Object.GetComponent<InspectSystem>().has_pickup)
+            if (!ExamineObject.GetComponent<InspectSystem>().has_pickup)
             {
                 examineSystem.ExamineActionPickUp();
             }
@@ -104,6 +96,13 @@ public class PlayerInteract : MonoBehaviour
 
             }
         }
+    }
 
+    private void ToggleFlashlight()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _cellphoneFlashlight.ToggleFlashlight();
+        }
     }
 }

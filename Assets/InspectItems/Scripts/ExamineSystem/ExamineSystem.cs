@@ -4,18 +4,18 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class ExamineSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject Examine_Point;
+    [SerializeField] private GameObject _examinePoint;
     // [SerializeField] private GameObject VFX_Effect;
-    [SerializeField] private GameObject info_UI;
+    [SerializeField] private GameObject _infoUI;
 
-    [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private PlayerInventory _playerInventory;
     [SerializeField] private CursorIcon _cursorIcon;
 
-    [SerializeField] private Camera ExamineCamera;
-    [SerializeField] private Transform MainCamera;
-    [SerializeField] private GameObject Inventory_UI;
+    [SerializeField] private Camera _examineCamera;
+    [SerializeField] private Transform _mainCamera;
+    [SerializeField] private GameObject _inventoryUI;
 
-    public GameObject Examine_Object;
+    public GameObject ExamineObject;
     public GameObject OriginalParentObject;
 
     public Vector3 parentSize;
@@ -31,37 +31,28 @@ public class ExamineSystem : MonoBehaviour
 
     public void Start()
     {
-        Examine_Point = GameObject.Find("ExaminePoint");
         // VFX_Effect = GameObject.Find("DoF-Effect");
-        Inventory_UI = GameObject.Find("Panel");
-        info_UI = GameObject.Find("Info_UI");
-        _cursorIcon = FindObjectOfType<CursorIcon>();
-
-        playerInventory = FindObjectOfType<PlayerInventory>();
-        ExamineCamera = GameObject.Find("ExamineCamera").GetComponent<Camera>();
-        MainCamera = GameObject.Find("PlayerCamera").GetComponent<Camera>().transform;
-
-        parentSize = Examine_Point.transform.GetComponent<BoxCollider>().bounds.size / 2;
-        info_UI.GetComponentInChildren<Button>(true).onClick.AddListener(ExitExamineMode);
-        info_UI.SetActive(false);
+        parentSize = _examinePoint.transform.GetComponent<BoxCollider>().bounds.size / 2;
+        _infoUI.GetComponentInChildren<Button>(true).onClick.AddListener(ExitExamineMode);
+        _infoUI.SetActive(false);
         // VFX_Effect.SetActive(false);
-        Inventory_UI.SetActive(false);
+        _inventoryUI.SetActive(false);
         ExamineMode = false;
     }
 
     public void ExamineAction(GameObject item) 
     {
         ExamineMode = true;
-        info_UI.SetActive(true);
+        _infoUI.SetActive(true);
         // VFX_Effect.SetActive(true);
-        Examine_Object = item;
-        ItemInspect(Examine_Object);
+        ExamineObject = item;
+        ItemInspect(ExamineObject);
     }
 
     public void ExamineActionPickUp()
     {
-        Examine_Object.GetComponent<InspectSystem>().has_pickup = true;
-        playerInventory.AddToInventory(Examine_Object);
+        ExamineObject.GetComponent<InspectSystem>().has_pickup = true;
+        _playerInventory.AddToInventory(ExamineObject);
         ExitExamineMode();
     }
 
@@ -72,17 +63,17 @@ public class ExamineSystem : MonoBehaviour
         {
             TooltipSystem.Hide();
             ExamineMode = true;
-            info_UI.SetActive(true);
+            _infoUI.SetActive(true);
             // VFX_Effect.SetActive(true);
-            Examine_Object = Inspect_object;
-            Examine_Object.SetActive(true);
+            ExamineObject = Inspect_object;
+            ExamineObject.SetActive(true);
 
-            Inventory_UI.SetActive(false);
+            _inventoryUI.SetActive(false);
             PlayerInventory.InventoryIsOn = false;
         }
 
-        if (Examine_Object.transform.parent != null)
-            OriginalParentObject = Examine_Object.transform.parent.gameObject;
+        if (ExamineObject.transform.parent != null)
+            OriginalParentObject = ExamineObject.transform.parent.gameObject;
         else
             OriginalParentObject = null;
 
@@ -95,11 +86,11 @@ public class ExamineSystem : MonoBehaviour
     #region Reset Tranform
     public void ResetTransform()
     {
-        ExamineCamera.fieldOfView = 50f;
-        Examine_Object.transform.SetParent(Examine_Point.transform);
-        Examine_Object.transform.localPosition = new Vector3(0, 0, 0);
-        Examine_Object.transform.localRotation = new Quaternion(0, 0, 0, 0);
-        Examine_Object.layer = 3;
+        _examineCamera.fieldOfView = 50f;
+        ExamineObject.transform.SetParent(_examinePoint.transform);
+        ExamineObject.transform.localPosition = new Vector3(0, 0, 0);
+        ExamineObject.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        ExamineObject.layer = 3;
     }
     #endregion
 
@@ -110,7 +101,7 @@ public class ExamineSystem : MonoBehaviour
         OriginalRotation = Inspect_object.transform.rotation;
         OriginalScale = Inspect_object.transform.localScale;
         OriginalLayer = Inspect_object.layer;
-        Inspect_object.transform.SetParent(Examine_Point.transform);
+        Inspect_object.transform.SetParent(_examinePoint.transform);
         Inspect_object.transform.localPosition = new Vector3(0, 0, 0);
         Inspect_object.transform.localRotation = new Quaternion(0, 0, 0, 0);
         Inspect_object.layer = 3;
@@ -129,33 +120,33 @@ public class ExamineSystem : MonoBehaviour
         this.gameObject.GetComponent<FirstPersonController>().enabled = true;
         ExamineMode = false;
         // VFX_Effect.SetActive(false);
-        info_UI.SetActive(false);
+        _infoUI.SetActive(false);
 
 
         if (OriginalParentObject != null)
-            Examine_Object.transform.parent = OriginalParentObject.transform;
+            ExamineObject.transform.parent = OriginalParentObject.transform;
         else
-            Examine_Object.transform.parent = null;
+            ExamineObject.transform.parent = null;
 
-        Examine_Object.transform.position = OriginalPosition;
-        Examine_Object.transform.rotation = OriginalRotation;
-        Examine_Object.transform.localScale = OriginalScale;
-        Examine_Object.layer = OriginalLayer;
+        ExamineObject.transform.position = OriginalPosition;
+        ExamineObject.transform.rotation = OriginalRotation;
+        ExamineObject.transform.localScale = OriginalScale;
+        ExamineObject.layer = OriginalLayer;
 
-        foreach (Transform child in Examine_Object.transform)
+        foreach (Transform child in ExamineObject.transform)
         {
             child.gameObject.layer = OriginalLayer;
         }
 
-        if (Examine_Object.GetComponent<InspectSystem>().has_pickup)
-            Examine_Object.SetActive(false);
+        if (ExamineObject.GetComponent<InspectSystem>().has_pickup)
+            ExamineObject.SetActive(false);
 
         if (TooltipTrigger.EximaneFromInventory)
         {
             _cursorIcon.ChangeMouseIcon(CursorLockMode.None, true, Color.black, 5);
 
             this.gameObject.GetComponent<FirstPersonController>().enabled = false;
-            Inventory_UI.SetActive(true);
+            _inventoryUI.SetActive(true);
             PlayerInventory.InventoryIsOn = true;
             TooltipTrigger.EximaneFromInventory = false;
         }
@@ -165,8 +156,8 @@ public class ExamineSystem : MonoBehaviour
     #region Resize
     public void ResizeObject(GameObject Resize_object)
     {
-        MainCamera.transform.localPosition = new Vector3(0, 0.8f, 0);
-        MainCamera.localRotation = new Quaternion(0, 0, 0, 0);
+        _mainCamera.transform.localPosition = new Vector3(0, 0.8f, 0);
+        _mainCamera.localRotation = new Quaternion(0, 0, 0, 0);
 
 
         if (Resize_object.GetComponent<MeshFilter>() != null)
