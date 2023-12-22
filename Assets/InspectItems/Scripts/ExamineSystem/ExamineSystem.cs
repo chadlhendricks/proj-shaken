@@ -5,7 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class ExamineSystem : MonoBehaviour
 {
     [SerializeField] private GameObject Examine_Point;
-    [SerializeField] private GameObject VFX_Effect;
+    // [SerializeField] private GameObject VFX_Effect;
     [SerializeField] private GameObject info_UI;
 
     [SerializeField] private PlayerInventory playerInventory;
@@ -31,20 +31,20 @@ public class ExamineSystem : MonoBehaviour
 
     public void Start()
     {
-        Examine_Point = GameObject.Find("Examine_Point");
-        VFX_Effect = GameObject.Find("DoF-Effect");
+        Examine_Point = GameObject.Find("ExaminePoint");
+        // VFX_Effect = GameObject.Find("DoF-Effect");
         Inventory_UI = GameObject.Find("Panel");
         info_UI = GameObject.Find("Info_UI");
         _cursorIcon = FindObjectOfType<CursorIcon>();
 
         playerInventory = FindObjectOfType<PlayerInventory>();
         ExamineCamera = GameObject.Find("ExamineCamera").GetComponent<Camera>();
-        MainCamera = GameObject.Find("FirstPersonCharacter").GetComponent<Camera>().transform;
+        MainCamera = GameObject.Find("PlayerCamera").GetComponent<Camera>().transform;
 
         parentSize = Examine_Point.transform.GetComponent<BoxCollider>().bounds.size / 2;
         info_UI.GetComponentInChildren<Button>(true).onClick.AddListener(ExitExamineMode);
         info_UI.SetActive(false);
-        VFX_Effect.SetActive(false);
+        // VFX_Effect.SetActive(false);
         Inventory_UI.SetActive(false);
         ExamineMode = false;
     }
@@ -53,7 +53,7 @@ public class ExamineSystem : MonoBehaviour
     {
         ExamineMode = true;
         info_UI.SetActive(true);
-        VFX_Effect.SetActive(true);
+        // VFX_Effect.SetActive(true);
         Examine_Object = item;
         ItemInspect(Examine_Object);
     }
@@ -73,7 +73,7 @@ public class ExamineSystem : MonoBehaviour
             TooltipSystem.Hide();
             ExamineMode = true;
             info_UI.SetActive(true);
-            VFX_Effect.SetActive(true);
+            // VFX_Effect.SetActive(true);
             Examine_Object = Inspect_object;
             Examine_Object.SetActive(true);
 
@@ -128,7 +128,7 @@ public class ExamineSystem : MonoBehaviour
 
         this.gameObject.GetComponent<FirstPersonController>().enabled = true;
         ExamineMode = false;
-        VFX_Effect.SetActive(false);
+        // VFX_Effect.SetActive(false);
         info_UI.SetActive(false);
 
 
