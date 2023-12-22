@@ -42,7 +42,7 @@ public class InspectSystem : MonoBehaviour
 
     public void Update()
     {
-        if (ExamineSystem.ExamineMode && ExamineSystem.Examine_Object.name == this.transform.name)
+        if (ExamineSystem.ExamineMode && ExamineSystem.ExamineObject.name == this.transform.name)
         {
             if (Input.GetMouseButton(0))
             {
@@ -62,7 +62,7 @@ public class InspectSystem : MonoBehaviour
             ExamineCamera.fieldOfView = DefaultZoom;
         }
 
-        if (ExamineSystem.ExamineMode && !loadPoints && ExamineSystem.Examine_Object.name == this.transform.name)
+        if (ExamineSystem.ExamineMode && !loadPoints && ExamineSystem.ExamineObject.name == this.transform.name)
         {
             for (int i = 0; i < PointOfInterestList.Count; i++)
             {
@@ -71,7 +71,7 @@ public class InspectSystem : MonoBehaviour
             }
             loadPoints = true;
         }
-        else if (!ExamineSystem.ExamineMode && loadPoints && ExamineSystem.Examine_Object.name == this.transform.name)
+        else if (!ExamineSystem.ExamineMode && loadPoints && ExamineSystem.ExamineObject.name == this.transform.name)
         {
             for (int i = 0; i < PointOfInterestList.Count; i++)
             {
