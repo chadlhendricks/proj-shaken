@@ -447,8 +447,8 @@ public class FirstPersonController : MonoBehaviour
 
                 rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
-                Debug.Log(velocity.x + velocityChange.x);
-                Debug.Log(velocity.z + velocityChange.z);
+                // Debug.Log(velocity.x + velocityChange.x);
+                // Debug.Log(velocity.z + velocityChange.z);
 
                 animator.SetFloat(xVelocityHash, velocity.x + velocityChange.x);
                 animator.SetFloat(yVelocityHash, velocity.z + velocityChange.z);
