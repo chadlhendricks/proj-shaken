@@ -8,8 +8,10 @@ public class TableFlipL: MonoBehaviour {
 	public bool open;
 	public Transform Player;
 
-	void Start (){
-		open = false;
+	void Start ()
+	{
+        Player = GameObject.Find("Player").transform;
+        open = false;
 	}
 
 	void OnMouseOver (){
