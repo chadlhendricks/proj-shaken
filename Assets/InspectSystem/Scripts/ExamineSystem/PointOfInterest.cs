@@ -49,11 +49,11 @@ public class PointOfInterest : MonoBehaviour
     {
         if (gameObject.GetComponent<MeshRenderer>().material.color.a == 0f)
         {
-            LeanTween.alpha(gameObject, 0.5f, 1.5f);
+            // LeanTween.alpha(gameObject, 0.5f, 1.5f);
         }
         else if (gameObject.GetComponent<MeshRenderer>().material.color.a == 0.5f)
         {
-            LeanTween.alpha(gameObject, 0f, 1.5f);
+            // LeanTween.alpha(gameObject, 0f, 1.5f);
         }
 
         yield return new WaitForSeconds(0.01f);

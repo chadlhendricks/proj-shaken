@@ -28,10 +28,10 @@ public class Player_UIText : MonoBehaviour
         {
             displayDone = true;
             chat_panel.SetActive(true);
-            LeanTween.alphaCanvas(chat_canvasGroup, 1, 0.5f);
+            // LeanTween.alphaCanvas(chat_canvasGroup, 1, 0.5f);
             interaction_text.text = text;
             yield return new WaitForSeconds(2.5f);
-            LeanTween.alphaCanvas(chat_canvasGroup, 0, 0.5f);
+            // LeanTween.alphaCanvas(chat_canvasGroup, 0, 0.5f);
             yield return new WaitForSeconds(0.5f);
             chat_panel.SetActive(false);
             displayDone = false;

@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityStandardAssets.Characters.FirstPerson;
-
+using UnityTutorial.PlayerControl;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -35,7 +34,7 @@ public class PlayerInventory : MonoBehaviour
         {
             _cursorIcon.ChangeMouseIcon(CursorLockMode.None, true, Color.black, 5);
 
-            PlayerController.GetComponent<FirstPersonController>().enabled = false;
+            PlayerController.GetComponent<PlayerController>().enabled = false;
             Inventory_UI.SetActive(true);
             InventoryIsOn = true;
         }
@@ -43,7 +42,7 @@ public class PlayerInventory : MonoBehaviour
         {
             _cursorIcon.ChangeMouseIcon(CursorLockMode.Locked, false, Color.white, 5);
 
-            PlayerController.GetComponent<FirstPersonController>().enabled = true;
+            PlayerController.GetComponent<PlayerController>().enabled = true;
             TooltipSystem.Hide();
             Inventory_UI.SetActive(false);
             InventoryIsOn = false;
