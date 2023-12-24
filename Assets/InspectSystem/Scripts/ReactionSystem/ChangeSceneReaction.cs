@@ -5,7 +5,7 @@ using UnityEditor;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor.Build.Content;
+// using UnityEditor.Build.Content;
 
 public class ChangeSceneReaction : MonoBehaviour
 {
@@ -122,88 +122,88 @@ public class ChangeSceneReaction : MonoBehaviour
     }
 }
 
-[CustomEditor(typeof(ChangeSceneReaction))]
-public class MyScriptEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
+//[CustomEditor(typeof(ChangeSceneReaction))]
+//public class MyScriptEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        base.OnInspectorGUI();
 
-        ChangeSceneReaction ItemsIsNeeded = (ChangeSceneReaction) target;
+//        ChangeSceneReaction ItemsIsNeeded = (ChangeSceneReaction) target;
 
-        ItemsIsNeeded.NeedItems = EditorGUILayout.Toggle("Inventory Items ", ItemsIsNeeded.NeedItems);
+//        ItemsIsNeeded.NeedItems = EditorGUILayout.Toggle("Inventory Items ", ItemsIsNeeded.NeedItems);
 
-        InventoryItemsShow();
-        ReactionConditionShow();
+//        InventoryItemsShow();
+//        ReactionConditionShow();
 
-        #region InventoryItemsShow
-        void InventoryItemsShow()
-        {
-            if (ItemsIsNeeded.NeedItems)
-                GUI.enabled = true;
-            else
-                GUI.enabled = false;
+//        #region InventoryItemsShow
+//        void InventoryItemsShow()
+//        {
+//            if (ItemsIsNeeded.NeedItems)
+//                GUI.enabled = true;
+//            else
+//                GUI.enabled = false;
 
 
-            ItemsIsNeeded.NeedItemsFoldOut = EditorGUILayout.Foldout(ItemsIsNeeded.NeedItemsFoldOut, "Inventory Items ", true);
-            if (ItemsIsNeeded.NeedItemsFoldOut)
-            {
-                EditorGUI.indentLevel++;
+//            ItemsIsNeeded.NeedItemsFoldOut = EditorGUILayout.Foldout(ItemsIsNeeded.NeedItemsFoldOut, "Inventory Items ", true);
+//            if (ItemsIsNeeded.NeedItemsFoldOut)
+//            {
+//                EditorGUI.indentLevel++;
 
-                List<GameObject> list = ItemsIsNeeded.ConditionItem;
-                int size = Mathf.Max(0, EditorGUILayout.IntField("Size", list.Count));
+//                List<GameObject> list = ItemsIsNeeded.ConditionItem;
+//                int size = Mathf.Max(0, EditorGUILayout.IntField("Size", list.Count));
 
-                while (size > list.Count)
-                {
-                    list.Add(null);
-                }
+//                while (size > list.Count)
+//                {
+//                    list.Add(null);
+//                }
 
-                while (size < list.Count)
-                {
-                    list.RemoveAt(list.Count - 1);
-                }
+//                while (size < list.Count)
+//                {
+//                    list.RemoveAt(list.Count - 1);
+//                }
 
-                for (int i = 0; i < size; i++)
-                {
-                    list[i] = EditorGUILayout.ObjectField("Element " + i, list[i], typeof(GameObject), true) as GameObject;
-                }
-                EditorGUI.indentLevel--;
-            }
-        }
-        #endregion
+//                for (int i = 0; i < size; i++)
+//                {
+//                    list[i] = EditorGUILayout.ObjectField("Element " + i, list[i], typeof(GameObject), true) as GameObject;
+//                }
+//                EditorGUI.indentLevel--;
+//            }
+//        }
+//        #endregion
 
-        #region ReactionConditionShow
-        void ReactionConditionShow()
-        {
-            if (!ItemsIsNeeded.NeedItems)
-                GUI.enabled = true;
-            else
-                GUI.enabled = false;
-            ItemsIsNeeded.InteractionObjectFoldOut = EditorGUILayout.Foldout(ItemsIsNeeded.InteractionObjectFoldOut, "Interaction Object State", true);
+//        #region ReactionConditionShow
+//        void ReactionConditionShow()
+//        {
+//            if (!ItemsIsNeeded.NeedItems)
+//                GUI.enabled = true;
+//            else
+//                GUI.enabled = false;
+//            ItemsIsNeeded.InteractionObjectFoldOut = EditorGUILayout.Foldout(ItemsIsNeeded.InteractionObjectFoldOut, "Interaction Object State", true);
 
-            if (ItemsIsNeeded.InteractionObjectFoldOut) 
-            {
-                EditorGUI.indentLevel++;
-                List<GameObject> list = ItemsIsNeeded.ReactionDoneItems;
-                int size = Mathf.Max(0, EditorGUILayout.IntField("Size", list.Count));
+//            if (ItemsIsNeeded.InteractionObjectFoldOut) 
+//            {
+//                EditorGUI.indentLevel++;
+//                List<GameObject> list = ItemsIsNeeded.ReactionDoneItems;
+//                int size = Mathf.Max(0, EditorGUILayout.IntField("Size", list.Count));
 
-                while (size > list.Count)
-                {
-                    list.Add(null);
-                }
+//                while (size > list.Count)
+//                {
+//                    list.Add(null);
+//                }
 
-                while (size < list.Count)
-                {
-                    list.RemoveAt(list.Count - 1);
-                }
+//                while (size < list.Count)
+//                {
+//                    list.RemoveAt(list.Count - 1);
+//                }
 
-                for (int i = 0; i < size; i++)
-                {
-                    list[i] = EditorGUILayout.ObjectField("Element " + i, list[i], typeof(GameObject), true) as GameObject;
-                }
-                EditorGUI.indentLevel--;
-            }
-        }
-        #endregion
-    }
-}
+//                for (int i = 0; i < size; i++)
+//                {
+//                    list[i] = EditorGUILayout.ObjectField("Element " + i, list[i], typeof(GameObject), true) as GameObject;
+//                }
+//                EditorGUI.indentLevel--;
+//            }
+//        }
+//        #endregion
+//    }
+//}

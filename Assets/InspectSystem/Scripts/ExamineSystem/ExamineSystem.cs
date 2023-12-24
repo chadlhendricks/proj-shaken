@@ -5,7 +5,7 @@ using UnityTutorial.PlayerControl;
 public class ExamineSystem : MonoBehaviour
 {
     [SerializeField] private GameObject Examine_Point;
-    // [SerializeField] private GameObject VFX_Effect;
+    [SerializeField] private GameObject VFX_Effect;
     [SerializeField] private GameObject info_UI;
 
     [SerializeField] private PlayerInventory playerInventory;
@@ -32,7 +32,6 @@ public class ExamineSystem : MonoBehaviour
     public void Start()
     {
         Examine_Point = GameObject.Find("ExaminePoint");
-        // VFX_Effect = GameObject.Find("DoF-Effect");
         Inventory_UI = GameObject.Find("Panel");
         info_UI = GameObject.Find("Info_UI");
         _cursorIcon = FindObjectOfType<CursorIcon>();
@@ -44,7 +43,6 @@ public class ExamineSystem : MonoBehaviour
         parentSize = Examine_Point.transform.GetComponent<BoxCollider>().bounds.size / 2;
         info_UI.GetComponentInChildren<Button>(true).onClick.AddListener(ExitExamineMode);
         info_UI.SetActive(false);
-        // VFX_Effect.SetActive(false);
         Inventory_UI.SetActive(false);
         ExamineMode = false;
     }
@@ -53,7 +51,7 @@ public class ExamineSystem : MonoBehaviour
     {
         ExamineMode = true;
         info_UI.SetActive(true);
-        // VFX_Effect.SetActive(true);
+        VFX_Effect.SetActive(true);
         Examine_Object = item;
         ItemInspect(Examine_Object);
     }
@@ -128,7 +126,7 @@ public class ExamineSystem : MonoBehaviour
 
         this.gameObject.GetComponent<PlayerController>().enabled = true;
         ExamineMode = false;
-        // VFX_Effect.SetActive(false);
+        VFX_Effect.SetActive(false);
         info_UI.SetActive(false);
 
 
