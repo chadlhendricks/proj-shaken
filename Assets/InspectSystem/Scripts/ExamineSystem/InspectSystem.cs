@@ -36,8 +36,8 @@ public class InspectSystem : MonoBehaviour
         ExamineSystem = FindObjectOfType<ExamineSystem>();
         ExamineCamera = GameObject.Find("ExamineCamera").GetComponent<Camera>();
         Icon = FindObjectOfType<CursorIcon>();
-        Item_title_Text = FindObjectOfType<Item_Title_Container>(true).GetComponentInChildren<TMP_Text>();
-        Item_Description_Text = FindObjectOfType<Item_Description_Container>(true).GetComponentInChildren<TMP_Text>();
+        // Item_title_Text = FindObjectOfType<Item_Title_Container>(true).GetComponentInChildren<TMP_Text>();
+        // Item_Description_Text = FindObjectOfType<Item_Description_Container>(true).GetComponentInChildren<TMP_Text>();
     }
 
     public void Update()
