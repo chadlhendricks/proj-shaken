@@ -7,15 +7,17 @@ public class PlayerInteract : MonoBehaviour
 {
     // Script References
     [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
+    private Animator _animator;
 
     public void Start()
     {
-    
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         ToggleFlashlight();
+        SitToType();
     }
 
     private void ToggleFlashlight()
@@ -23,6 +25,14 @@ public class PlayerInteract : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             _cellphoneFlashlight.ToggleFlashlight();
+        }
+    }
+
+    private void SitToType()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            _animator.SetLayerWeight(1, 1);
         }
     }
 }
