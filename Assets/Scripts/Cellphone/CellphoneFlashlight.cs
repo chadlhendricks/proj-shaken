@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CellphoneFlashlight : MonoBehaviour
 {
+    public GameObject _cellphoneLight;
     private bool _isFlashOn;
 
     private void Start()
     {
-        SetFlashlightState(false);
+        SetFlashlightState(true);
     }
 
     public void ToggleFlashlight()
@@ -21,5 +22,6 @@ public class CellphoneFlashlight : MonoBehaviour
     public void SetFlashlightState(bool state)
     {
         gameObject.SetActive(state);
+        _cellphoneLight.SetActive(state);
     }
 }

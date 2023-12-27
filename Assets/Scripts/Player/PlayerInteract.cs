@@ -7,6 +7,8 @@ public class PlayerInteract : MonoBehaviour
 {
     // Script References
     [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
+    [SerializeField] private Transform _handIKTransform;
+
     private Animator _animator;
 
     public void Start()
@@ -25,6 +27,12 @@ public class PlayerInteract : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             _cellphoneFlashlight.ToggleFlashlight();
+
+            if (_cellphoneFlashlight != null)
+            {
+                _handIKTransform.position = _cellphoneFlashlight.transform.position;
+                _animator.SetLayerWeight(1, 1);
+            }
         }
     }
 
