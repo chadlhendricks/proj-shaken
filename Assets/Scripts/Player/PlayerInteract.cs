@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerInteract : MonoBehaviour
 {
     // Script References
     [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
-    [SerializeField] private Transform _handIKTransform;
 
     private Animator _animator;
 
@@ -26,13 +26,12 @@ public class PlayerInteract : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
+            //_animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
             _cellphoneFlashlight.ToggleFlashlight();
-
-            if (_cellphoneFlashlight != null)
-            {
-                _handIKTransform.position = _cellphoneFlashlight.transform.position;
-                _animator.SetLayerWeight(1, 1);
-            }
+        }
+        else
+        {
+            //_animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 13f));
         }
     }
 
@@ -40,7 +39,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            _animator.SetLayerWeight(1, 1);
+
         }
     }
 }
