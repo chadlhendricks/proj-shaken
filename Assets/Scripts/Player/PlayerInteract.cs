@@ -8,38 +8,55 @@ public class PlayerInteract : MonoBehaviour
 {
     // Script References
     [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
+    [SerializeField] private TwoBoneIKConstraint _rightHandConstraint;
 
     private Animator _animator;
+
+    private bool _isHoldingPhone;
+    private float rightHandConstraintStartWeight = 0f;
+    private float rightHandConstraintEndWeight = 0.95f;
+
 
     public void Start()
     {
         _animator = GetComponent<Animator>();
+        _rightHandConstraint.weight = 0f;
     }
 
     private void Update()
     {
         ToggleFlashlight();
-        SitToType();
     }
 
     private void ToggleFlashlight()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            //_animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
-            _cellphoneFlashlight.ToggleFlashlight();
-        }
-        else
-        {
-            //_animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 13f));
-        }
+            if (!_isHoldingPhone)
+            {
+                _isHoldingPhone = true;
+                _cellphoneFlashlight.ToggleFlashlight();
+                StartCoroutine(SmoothRig(0, 1));
+            }
+            else
+            {
+                _isHoldingPhone = false;
+                _cellphoneFlashlight.ToggleFlashlight();
+                StartCoroutine(SmoothRig(1, 0));
+            }
+        }   
     }
 
-    private void SitToType()
+    IEnumerator SmoothRig(float start, float end)
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
+        float elapsedTime = 0;
+        float waitTime = 0.5f;
 
+        while (elapsedTime < waitTime)
+        {
+            _rightHandConstraint.weight = Mathf.Lerp(start, end, (elapsedTime / waitTime));
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
     }
 }
