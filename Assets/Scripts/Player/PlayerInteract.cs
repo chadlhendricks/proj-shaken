@@ -13,9 +13,6 @@ public class PlayerInteract : MonoBehaviour
     private Animator _animator;
 
     private bool _isHoldingPhone;
-    private float rightHandConstraintStartWeight = 0f;
-    private float rightHandConstraintEndWeight = 0.95f;
-
 
     public void Start()
     {
@@ -37,12 +34,14 @@ public class PlayerInteract : MonoBehaviour
                 _isHoldingPhone = true;
                 _cellphoneFlashlight.ToggleFlashlight();
                 StartCoroutine(SmoothRig(0, 1));
+                _animator.SetLayerWeight(1, 1f);
             }
             else
             {
                 _isHoldingPhone = false;
                 _cellphoneFlashlight.ToggleFlashlight();
                 StartCoroutine(SmoothRig(1, 0));
+                _animator.SetLayerWeight(1, 0f);
             }
         }   
     }
