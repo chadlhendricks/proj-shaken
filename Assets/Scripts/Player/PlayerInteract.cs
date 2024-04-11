@@ -8,13 +8,11 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerInteract : MonoBehaviour
 {
-    // Script References
     [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
     [SerializeField] private TwoBoneIKConstraint _rightHandConstraint;
-    public Volume volume; // Reference to the Volume component
-    public VolumeProfile volumeProfile; // Reference to the Volume Profile
-
     private Animator _animator;
+    private Volume volume; 
+    private VolumeProfile volumeProfile; 
 
     private bool _isHoldingPhone;
 
