@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.10588236, g: 0.14901961, b: 0.20392159, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1612dc54605b67947bed7b6e6b4f48c4, type: 2}
   m_HaloStrength: 0.603
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -93,7 +93,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 90fd0070289061b49a6c60ca9c81e46c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -6344,7 +6344,7 @@ GameObject:
   - component: {fileID: 1453336295}
   - component: {fileID: 1453336294}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7973,12 +7973,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1453336293}
   - {fileID: 1284331828}
   - {fileID: 101707750}
   - {fileID: 1199300961}
   - {fileID: 283864462}
   - {fileID: 934253061}
-  - {fileID: 1453336293}
   - {fileID: 899987166}
   - {fileID: 472421405}
   m_Father: {fileID: 2028063701}
@@ -10583,7 +10583,7 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    m_Quality: 2
+    m_Quality: 3
     m_FrameInfluence: 0.1
     m_JitterScale: 1
     m_MipBias: 0
