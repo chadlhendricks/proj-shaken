@@ -77,8 +77,8 @@ namespace UnityTutorial.PlayerControl
             _currentVelocity.x = Mathf.Lerp(_currentVelocity.x, _inputManager.Move.x * targetSpeed, AnimBlendSpeed * Time.fixedDeltaTime);
             _currentVelocity.y =  Mathf.Lerp(_currentVelocity.y, _inputManager.Move.y * targetSpeed, AnimBlendSpeed * Time.fixedDeltaTime);
 
-            var xVelDifference = _currentVelocity.x - _playerRigidbody.velocity.x;
-            var zVelDifference = _currentVelocity.y - _playerRigidbody.velocity.z;
+            var xVelDifference = _currentVelocity.x - _playerRigidbody.linearVelocity.x;
+            var zVelDifference = _currentVelocity.y - _playerRigidbody.linearVelocity.z;
 
             _playerRigidbody.AddForce(transform.TransformVector(new Vector3(xVelDifference, 0 , zVelDifference)), ForceMode.VelocityChange);
             }
@@ -127,7 +127,7 @@ namespace UnityTutorial.PlayerControl
         public void JumpAddForce()
         {
             //Comment this out if you want B-Hop, otherwise the player will jump twice in the air
-            _playerRigidbody.AddForce(-_playerRigidbody.velocity.y * Vector3.up, ForceMode.VelocityChange);
+            _playerRigidbody.AddForce(-_playerRigidbody.linearVelocity.y * Vector3.up, ForceMode.VelocityChange);
             _playerRigidbody.AddForce(Vector3.up * JumpFactor, ForceMode.Impulse);
             _animator.ResetTrigger(_jumpHash);
         }
@@ -146,7 +146,7 @@ namespace UnityTutorial.PlayerControl
             }
             //Falling
             _grounded = false;
-            _animator.SetFloat(_zVelHash, _playerRigidbody.velocity.y);
+            _animator.SetFloat(_zVelHash, _playerRigidbody.linearVelocity.y);
             SetAnimationGrounding();
             return;
         }
