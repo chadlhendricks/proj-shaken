@@ -87,6 +87,8 @@ public class ExamineSystem : MonoBehaviour
         this.gameObject.GetComponent<PlayerController>().enabled = false;
         SetNewTransform(Inspect_object);
         ResizeObject(Inspect_object);
+
+
     }
     #endregion
 

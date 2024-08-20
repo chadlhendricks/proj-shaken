@@ -35,8 +35,6 @@ namespace UnityTutorial.PlayerControl
         private const float _walkSpeed = 2f;
         private const float _runSpeed = 6f;
         private Vector2 _currentVelocity;
-        
-
 
         private void Start() {
             _hasAnimator = TryGetComponent<Animator>(out _animator);
