@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -5,21 +6,26 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityTutorial.Manager;
+using GreatArcStudios;
 
 public class PlayerInteract : MonoBehaviour
 {
-    // Script References
+    private InputManager _inputManager;
+    // private PauseManager _pauseManager;
+    private Animator _animator;
+    private Volume volume; 
+    private VolumeProfile volumeProfile; 
+
     [SerializeField] private CellphoneFlashlight _cellphoneFlashlight;
     [SerializeField] private TwoBoneIKConstraint _rightHandConstraint;
-    public Volume volume; // Reference to the Volume component
-    public VolumeProfile volumeProfile; // Reference to the Volume Profile
-
-    private Animator _animator;
+    [SerializeField] private Transform _righthandTarget;
 
     private bool _isHoldingPhone;
 
     public void Start()
     {
+        _inputManager = GetComponent<InputManager>();
         _animator = GetComponent<Animator>();
         _rightHandConstraint.weight = 0f;
 
@@ -43,7 +49,11 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update()
     {
-        ToggleFlashlight();
+        // TODO Need to stop being able to toggle flashlight when paused.
+        if (!_inputManager.Crouch)
+        {
+            ToggleFlashlight();
+        }
     }
 
     private void ToggleFlashlight()
