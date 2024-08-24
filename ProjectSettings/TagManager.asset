@@ -13,6 +13,7 @@ TagManager:
   - pickUp
   - NPC
   - UMAIgnore
+  - Ghost
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - UI
   - Objects
   - Player
-  - 
+  - Invisible
   - 
   - 
   - 
