@@ -18,7 +18,7 @@ MonoBehaviour:
   m_PlatformBuildProfile:
     rid: 3732647786477518869
   m_Scenes:
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/Menu/Demo1.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Scene_01/Scene_01.unity
