@@ -6,7 +6,6 @@ using UnityEngine;
 public class SimpleShoot : MonoBehaviour
 {
     [SerializeField] private Animator _playerAnimator;
-    [SerializeField] private Recoil _recoil;
 
     [Header("Prefab Refrences")]
     public GameObject bulletPrefab;
@@ -40,7 +39,6 @@ public class SimpleShoot : MonoBehaviour
         {
             //Calls animation on the gun that has the relevant animation events that will fire
             gunAnimator.SetTrigger("Fire");
-            _recoil.RecoilFire();
         }
     }
 
