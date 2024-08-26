@@ -47,20 +47,20 @@ public class PlayerPistol : MonoBehaviour
         {
             if (!_isHoldingGun)
             {
-                _animator.SetTrigger("EquipPistol");
-                _cellphoneConstraint.SetActive(false);
                 _isHoldingGun = true;
-                StartCoroutine(SmoothRig(0, 2));
-                _animator.SetLayerWeight(2, 1f);
-                _gun.SetActive(true);
+                _cellphoneConstraint.SetActive(false); // Makes sure the cellphone constraint is disabled
+                _animator.SetBool("PistolEquipped", true);
+                StartCoroutine(EnableGunAfterTime(0.5f)); // Enable gun after .5 seconds
+                StartCoroutine(SmoothRig(0, 2)); // Set weight of rig constraints smoothly
+                _animator.SetLayerWeight(2, 1f); // Set Layer weight to Pistol layer
             }
             else
             {
-                //_animator.SetTrigger("UnequipPistol");
                 _isHoldingGun = false;
-                StartCoroutine(SmoothRig(1, 0));
-                _animator.SetLayerWeight(2, 0f);
-                _gun.SetActive(false);
+                StartCoroutine(DisableGunAfterTime(2f)); // Disable gun after 2 seconds
+                _animator.SetBool("PistolEquipped", false);        
+                StartCoroutine(SmoothRig(1, 0)); // Set weight of rig constraints smoothly
+                _animator.SetLayerWeight(2, 0f); // Set Layer weight to Pistol layer
             }
         }
     }
@@ -79,5 +79,19 @@ public class PlayerPistol : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+
+    private IEnumerator EnableGunAfterTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        _gun.SetActive(true);
+    }
+
+    private IEnumerator DisableGunAfterTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        _gun.SetActive(false);
     }
 }

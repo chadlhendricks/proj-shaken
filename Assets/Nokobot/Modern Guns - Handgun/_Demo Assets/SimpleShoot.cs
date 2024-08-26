@@ -5,6 +5,7 @@ using UnityEngine;
 [AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
 public class SimpleShoot : MonoBehaviour
 {
+    [SerializeField] private Animator _playerAnimator;
     [SerializeField] private Recoil _recoil;
 
     [Header("Prefab Refrences")]
@@ -35,7 +36,7 @@ public class SimpleShoot : MonoBehaviour
     void Update()
     {
         //If you want a different input, change it here
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && _playerAnimator.GetBool("PistolEquipped") == true)
         {
             //Calls animation on the gun that has the relevant animation events that will fire
             gunAnimator.SetTrigger("Fire");
