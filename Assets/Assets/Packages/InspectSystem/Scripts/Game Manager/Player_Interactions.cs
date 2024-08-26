@@ -5,10 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using DialogueEditor;
 using UnityEngine.InputSystem;
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
+using Vector2 = UnityEngine.Vector2;
 
 public class Player_Interactions : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
+
     private ExamineSystem examineSystem;
     private PlayerInventory playerInventory;
     private pickUp _pickUp;
@@ -22,12 +26,18 @@ public class Player_Interactions : MonoBehaviour
 
     // NPC Interactions
     public GameObject currentNPC;
-
     [SerializeField] private GameObject _panelDialogue;
     private DisableConversation _disableConversation;
-
     private NPCConversationHandler _nPCConversationHandler;
     private NPCConversation _myConversation;
+
+    // Debug Raycast
+    [SerializeField] private LayerMask _aimColliderLayerMask = new LayerMask();
+    [SerializeField] private Transform _debugTransform;
+
+    // Gun
+    [SerializeField] private Transform _gunParticleEffect;
+    [SerializeField] private Transform _bloodParticleEffect;
 
     public void Start()
     {
@@ -44,8 +54,18 @@ public class Player_Interactions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray RayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 mouseWorldPosition = Vector3.zero;
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray RayOrigin = Camera.main.ScreenPointToRay(screenCenterPoint);
+        Transform hitTransform = null;
         RaycastHit hit;
+
+        if (Physics.Raycast(RayOrigin, out hit, 999f, _aimColliderLayerMask) ) 
+        {
+            _debugTransform.position = hit.point;
+            mouseWorldPosition = hit.point;
+            hitTransform = hit.transform;
+        }
 
         #region Examine System
         if (Input.GetKeyDown(KeyCode.E) && !ExamineSystem.ExamineMode && !PlayerInventory.InventoryIsOn)
@@ -118,6 +138,7 @@ public class Player_Interactions : MonoBehaviour
             }
         }
 
+
         if (Input.GetKeyDown(KeyCode.E) && !PlayerInventory.InventoryIsOn && !ExamineSystem.ExamineMode)
         {
             if (Physics.Raycast(RayOrigin, out hit, InteractionDistance))
@@ -132,6 +153,23 @@ public class Player_Interactions : MonoBehaviour
                     {
                         hit.collider.GetComponent<ChangeSceneReaction>().StartChangeScene();
                     }
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (hitTransform != null)
+            {
+                if (hitTransform.GetComponent<NPCInteractable>() != null)
+                {
+                    Debug.Log(hitTransform);
+                    Instantiate(_bloodParticleEffect, _debugTransform.position, UnityEngine.Quaternion.identity);
+                }
+                else
+                {
+                    Debug.Log(hitTransform);
+                    Instantiate(_gunParticleEffect, _debugTransform.position, UnityEngine.Quaternion.identity);
                 }
             }
         }

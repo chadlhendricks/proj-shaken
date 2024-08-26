@@ -1,17 +1,21 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.InputSystem;
 using UnityTutorial.Manager;
 
 public class PlayerPistol : MonoBehaviour
 {
+    [SerializeField] private Camera AimCamera;
+    [SerializeField] private InputAction _aimInput;
     [SerializeField] private GameObject _gun;
+
     private Animator _animator;
     private InputManager _inputManager;
 
-    [SerializeField] private TwoBoneIKConstraint _leftHandGunConstraint;
-    [SerializeField] private TwoBoneIKConstraint _rightHandGunConstraint;
-    //[SerializeField] private MultiAimConstraint _rightHandGunConstraint;
+    [SerializeField] private MultiAimConstraint _bodyAimingConstraint;
+    [SerializeField] private MultiAimConstraint _rightHandAimingConstraint;
+    [SerializeField] private TwoBoneIKConstraint _leftHandAimingConstraint;
 
     [SerializeField] private GameObject _cellphoneConstraint;
 
@@ -23,8 +27,9 @@ public class PlayerPistol : MonoBehaviour
         _animator = GetComponent<Animator>();
         _inputManager = GetComponent<InputManager>();
 
-        _leftHandGunConstraint.weight = 0f;
-        _rightHandGunConstraint.weight = 0f;
+        _bodyAimingConstraint.weight = 0f;
+        _rightHandAimingConstraint.weight = 0f;
+        _leftHandAimingConstraint.weight = 0f;
     }
 
     // Update is called once per frame
@@ -42,21 +47,20 @@ public class PlayerPistol : MonoBehaviour
         {
             if (!_isHoldingGun)
             {
+                _animator.SetTrigger("EquipPistol");
                 _cellphoneConstraint.SetActive(false);
                 _isHoldingGun = true;
-                _gun.SetActive(true);
-                _animator.SetTrigger("EquipPistol");
                 StartCoroutine(SmoothRig(0, 2));
                 _animator.SetLayerWeight(2, 1f);
+                _gun.SetActive(true);
             }
             else
             {
+                //_animator.SetTrigger("UnequipPistol");
                 _isHoldingGun = false;
-                _gun.SetActive(false);
-                // Add animation putting pistol back
-                _animator.SetTrigger("UnequipPistol");
                 StartCoroutine(SmoothRig(1, 0));
                 _animator.SetLayerWeight(2, 0f);
+                _gun.SetActive(false);
             }
         }
     }
@@ -64,14 +68,14 @@ public class PlayerPistol : MonoBehaviour
     IEnumerator SmoothRig(float start, float end)
     {
         float elapsedTime = 0;
-        float waitTime = 0.5f;
+        float waitTime = 1f;
 
         while (elapsedTime < waitTime)
         {
-            //_rightHandGunConstraint.weight = Mathf.Lerp(start, end, (elapsedTime / waitTime));
+            _bodyAimingConstraint.weight = Mathf.Lerp(start, end, (elapsedTime / waitTime));
+            _rightHandAimingConstraint.weight = Mathf.Lerp(start, end, (elapsedTime / waitTime));
+            _leftHandAimingConstraint.weight = Mathf.Lerp(start, end, (elapsedTime / waitTime));
 
-            _leftHandGunConstraint.weight = Mathf.Lerp(start, end, (elapsedTime / waitTime));
-            _rightHandGunConstraint.weight = Mathf.Lerp(start, end, (elapsedTime / waitTime));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
