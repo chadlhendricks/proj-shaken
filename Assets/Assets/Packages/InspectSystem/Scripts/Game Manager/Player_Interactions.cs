@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using System.Numerics;
 using Vector3 = UnityEngine.Vector3;
 using Vector2 = UnityEngine.Vector2;
+using NavKeypad;
 
 public class Player_Interactions : MonoBehaviour
 {
@@ -87,6 +88,11 @@ public class Player_Interactions : MonoBehaviour
                     _pickUp.pickUpSystem(hit.collider.gameObject);
                     _cursorIcon.ChangeMouseIcon(CursorLockMode.Locked, false, Color.white, 5);
 
+                }
+                // Item Interact
+                else if (hit.collider.TryGetComponent(out KeypadButton keypadButton))
+                {
+                    keypadButton.PressButton();
                 }
                 // Interact with an NPC
                 else if (hit.collider.CompareTag("NPC"))
