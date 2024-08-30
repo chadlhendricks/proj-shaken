@@ -17,12 +17,12 @@ public class StateIdle : State
 
         if (distanceFromPlayer < _aggroRange)
         {
-            Debug.Log("Can see the player");
+            // Debug.Log("Can see the player");
             return chaseState;
         } 
         else
         {
-            Debug.Log("Can't see the player");
+            // Debug.Log("Can't see the player");
             return this;
         }
     }

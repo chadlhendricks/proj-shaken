@@ -10,7 +10,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GameObject itemToInspect;
     public GameObject tempItemToInspcet;
     public ExamineSystem examineSystem;
-    public Player_Interactions interaction;
+    public PlayerInteractions interaction;
 
     public static bool EximaneFromInventory = false;
     public bool isThatOn = false;
@@ -18,7 +18,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void Start()
     {
         examineSystem = FindFirstObjectByType<ExamineSystem>();
-        interaction = FindFirstObjectByType<Player_Interactions>();
+        interaction = FindFirstObjectByType<PlayerInteractions>();
     }
 
 
@@ -50,7 +50,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 isThatOn = false;
                 EximaneFromInventory = true;
                 examineSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<ExamineSystem>();
-                interaction = GameObject.FindGameObjectWithTag("Manager").GetComponent<Player_Interactions>();
+                interaction = GameObject.FindGameObjectWithTag("Manager").GetComponent<PlayerInteractions>();
                 interaction.Examine_Object = itemToInspect;
                 examineSystem.ItemInspect(tempItemToInspcet);
                 tempItemToInspcet = null;

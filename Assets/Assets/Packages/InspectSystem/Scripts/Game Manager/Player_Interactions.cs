@@ -10,16 +10,14 @@ using Vector3 = UnityEngine.Vector3;
 using Vector2 = UnityEngine.Vector2;
 using NavKeypad;
 
-public class Player_Interactions : MonoBehaviour
+public class PlayerInteractions : MonoBehaviour
 {
-    [SerializeField] private PlayerInput _playerInput;
-
-    private ExamineSystem examineSystem;
-    private PlayerInventory playerInventory;
+    private ExamineSystem _examineSystem;
+    private PlayerInventory _playerInventory;
     private pickUp _pickUp;
     private CursorIcon _cursorIcon;
-    private float time;
-    private float timer;
+    private float _time;
+    private float _timer;
 
     public float ExamineDistance;
     public float InteractionDistance;
@@ -42,10 +40,10 @@ public class Player_Interactions : MonoBehaviour
 
     public void Start()
     {
-        time = 0.5f;
+        _time = 0.5f;
         _pickUp = FindFirstObjectByType<pickUp>();
-        examineSystem = FindFirstObjectByType<ExamineSystem>();
-        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        _examineSystem = FindFirstObjectByType<ExamineSystem>();
+        _playerInventory = FindFirstObjectByType<PlayerInventory>();
         _cursorIcon = FindFirstObjectByType<CursorIcon>();
         currentNPC = null;
 
@@ -77,7 +75,7 @@ public class Player_Interactions : MonoBehaviour
                 if (hit.collider.CompareTag("Examine"))
                 {
                     Examine_Object = hit.collider.gameObject;
-                    examineSystem.ExamineAction(Examine_Object);
+                    _examineSystem.ExamineAction(Examine_Object);
                     _cursorIcon.ChangeMouseIcon(CursorLockMode.None, true, Color.white, 5);
 
                 }
@@ -89,7 +87,7 @@ public class Player_Interactions : MonoBehaviour
                     _cursorIcon.ChangeMouseIcon(CursorLockMode.Locked, false, Color.white, 5);
 
                 }
-                // Item Interact
+                // Keypad Interact
                 else if (hit.collider.TryGetComponent(out KeypadButton keypadButton))
                 {
                     keypadButton.PressButton();
@@ -125,22 +123,22 @@ public class Player_Interactions : MonoBehaviour
         {
             if (!Examine_Object.GetComponent<InspectSystem>().has_pickup)
             {
-                examineSystem.ExamineActionPickUp();
+                _examineSystem.ExamineActionPickUp();
             }
         }
         else if (Input.GetKeyDown(KeyCode.R) && ExamineSystem.ExamineMode) 
         {
-            examineSystem.ResetTransform();
+            _examineSystem.ResetTransform();
         }
         #endregion
 
-        timer += Time.deltaTime;
-        if (timer >= time)
+        _timer += Time.deltaTime;
+        if (_timer >= _time)
         {
             if (Input.GetKey(KeyCode.I) && !ExamineSystem.ExamineMode && !TooltipTrigger.EximaneFromInventory)
             {
-                playerInventory.InvetoryAction();
-                timer = 0;
+                _playerInventory.InvetoryAction();
+                _timer = 0;
             }
         }
 
@@ -163,18 +161,19 @@ public class Player_Interactions : MonoBehaviour
             }
         }
 
+        // Shooting
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (hitTransform != null)
             {
                 if (hitTransform.GetComponent<NPCInteractable>() != null)
                 {
-                    Debug.Log(hitTransform);
+                    // Debug.Log(hitTransform);
                     Instantiate(_bloodParticleEffect, _debugTransform.position, UnityEngine.Quaternion.identity);
                 }
                 else
                 {
-                    Debug.Log(hitTransform);
+                    // Debug.Log(hitTransform);
                     Instantiate(_gunParticleEffect, _debugTransform.position, UnityEngine.Quaternion.identity);
                 }
             }
