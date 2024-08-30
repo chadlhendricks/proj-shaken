@@ -17,8 +17,8 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void Start()
     {
-        examineSystem = FindObjectOfType<ExamineSystem>();
-        interaction = FindObjectOfType<Player_Interactions>();
+        examineSystem = FindFirstObjectByType<ExamineSystem>();
+        interaction = FindFirstObjectByType<Player_Interactions>();
     }
 
 

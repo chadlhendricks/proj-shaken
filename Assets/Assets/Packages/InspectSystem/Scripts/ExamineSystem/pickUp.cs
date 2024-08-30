@@ -12,8 +12,8 @@ public class pickUp : MonoBehaviour
 
     public void Start()
     {
-        PlayerController = FindObjectOfType<PlayerInventory>();
-        Icon = FindObjectOfType<CursorIcon>();
+        PlayerController = FindFirstObjectByType<PlayerInventory>();
+        Icon = FindFirstObjectByType<CursorIcon>();
     }
 
     public void pickUpSystem(GameObject item)

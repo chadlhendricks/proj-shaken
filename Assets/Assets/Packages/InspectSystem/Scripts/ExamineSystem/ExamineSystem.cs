@@ -34,9 +34,9 @@ public class ExamineSystem : MonoBehaviour
         Examine_Point = GameObject.Find("ExaminePoint");
         Inventory_UI = GameObject.Find("Panel");
         info_UI = GameObject.Find("Info_UI");
-        _cursorIcon = FindObjectOfType<CursorIcon>();
+        _cursorIcon = FindFirstObjectByType<CursorIcon>();
 
-        playerInventory = FindObjectOfType<PlayerInventory>();
+        playerInventory = FindFirstObjectByType<PlayerInventory>();
         ExamineCamera = GameObject.Find("ExamineCamera").GetComponent<Camera>();
         MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>().transform;
 

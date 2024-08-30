@@ -32,8 +32,8 @@ public class ChangeSceneReaction : MonoBehaviour
 
     public void Start()
     {
-        PlayerInventory = FindObjectOfType<PlayerInventory>();
-        Icon = FindObjectOfType<CursorIcon>();
+        PlayerInventory = FindFirstObjectByType<PlayerInventory>();
+        Icon = FindFirstObjectByType<CursorIcon>();
     }
 
     public void OnMouseOver()

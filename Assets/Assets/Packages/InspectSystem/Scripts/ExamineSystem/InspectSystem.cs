@@ -33,11 +33,11 @@ public class InspectSystem : MonoBehaviour
         MinZoom = 40f;
         MaxZoom = 70f;
         rotSpeed = 200;
-        ExamineSystem = FindObjectOfType<ExamineSystem>();
+        ExamineSystem = FindFirstObjectByType<ExamineSystem>();
         ExamineCamera = GameObject.Find("ExamineCamera").GetComponent<Camera>();
-        Icon = FindObjectOfType<CursorIcon>();
-        // Item_title_Text = FindObjectOfType<Item_Title_Container>(true).GetComponentInChildren<TMP_Text>();
-        // Item_Description_Text = FindObjectOfType<Item_Description_Container>(true).GetComponentInChildren<TMP_Text>();
+        Icon = FindFirstObjectByType<CursorIcon>();
+        // Item_title_Text = FindFirstObjectByType<Item_Title_Container>(true).GetComponentInChildren<TMP_Text>();
+        // Item_Description_Text = FindFirstObjectByType<Item_Description_Container>(true).GetComponentInChildren<TMP_Text>();
     }
 
     public void Update()

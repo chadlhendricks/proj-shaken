@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        audioManager = FindObjectOfType<AudioManager>();
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     private void Start()

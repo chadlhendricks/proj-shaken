@@ -23,8 +23,8 @@ public class PointOfInterest : MonoBehaviour
         ItemIsFound = false;
         instance = this;
         MouseOn = false;
-        Icon = FindObjectOfType<CursorIcon>();
-        PlayerInventory = FindObjectOfType<PlayerInventory>();
+        Icon = FindFirstObjectByType<CursorIcon>();
+        PlayerInventory = FindFirstObjectByType<PlayerInventory>();
     }
 
     public void Update()

@@ -23,7 +23,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void Start()
     {
-        _cursorIcon = FindObjectOfType<CursorIcon>();
+        _cursorIcon = FindFirstObjectByType<CursorIcon>();
 
         PlayerController = GameObject.FindGameObjectWithTag("Player");
     }

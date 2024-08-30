@@ -7,7 +7,6 @@ using UnityEngine.Animations.Rigging;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityTutorial.Manager;
-using GreatArcStudios;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -32,7 +31,7 @@ public class PlayerInteract : MonoBehaviour
         if (volume == null)
         {
             // If volume is not assigned, try to find it in the scene
-            volume = FindObjectOfType<Volume>();
+            volume = FindFirstObjectByType<Volume>();
         }
 
         if (volume != null)

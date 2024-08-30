@@ -6,10 +6,6 @@ using UnityTutorial.Manager;
 
 public class PlayerPistol : MonoBehaviour
 {
-    [SerializeField] private Camera AimCamera;
-    [SerializeField] private InputAction _aimInput;
-    [SerializeField] private GameObject _gun;
-
     private Animator _animator;
     private InputManager _inputManager;
 
@@ -19,6 +15,7 @@ public class PlayerPistol : MonoBehaviour
 
     [SerializeField] private GameObject _cellphoneConstraint;
 
+    [SerializeField] private GameObject _pistol;
     private bool _isHoldingGun;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,6 +27,7 @@ public class PlayerPistol : MonoBehaviour
         _bodyAimingConstraint.weight = 0f;
         _rightHandAimingConstraint.weight = 0f;
         _leftHandAimingConstraint.weight = 0f;
+        _pistol.SetActive(false);
     }
 
     // Update is called once per frame
@@ -85,13 +83,13 @@ public class PlayerPistol : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
 
-        _gun.SetActive(true);
+        _pistol.SetActive(true);
     }
 
     private IEnumerator DisableGunAfterTime(float seconds)
     {
         yield return new WaitForSeconds(seconds);
 
-        _gun.SetActive(false);
+        _pistol.SetActive(false);
     }
 }

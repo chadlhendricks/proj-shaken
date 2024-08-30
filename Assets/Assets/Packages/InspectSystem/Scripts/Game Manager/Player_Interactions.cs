@@ -43,10 +43,10 @@ public class Player_Interactions : MonoBehaviour
     public void Start()
     {
         time = 0.5f;
-        _pickUp = FindObjectOfType<pickUp>();
-        examineSystem = FindObjectOfType<ExamineSystem>();
-        playerInventory = FindObjectOfType<PlayerInventory>();
-        _cursorIcon = FindObjectOfType<CursorIcon>();
+        _pickUp = FindFirstObjectByType<pickUp>();
+        examineSystem = FindFirstObjectByType<ExamineSystem>();
+        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        _cursorIcon = FindFirstObjectByType<CursorIcon>();
         currentNPC = null;
 
         _disableConversation = _panelDialogue.GetComponent<DisableConversation>();
